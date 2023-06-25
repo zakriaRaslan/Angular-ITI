@@ -1,0 +1,65 @@
+
+<!-- <div class="text text-secondary">
+  [will Remove It] For Test:
+  {{SelectedCatId}}
+  <button type="button" class="btn btn-primary" (click)="changeCat()">ChangeCat</button>
+</div> -->
+<!-- <hr>
+<h3>Date Time Of Order : {{dateTime | date :'fullDate'}}</h3>
+<hr> -->
+<table class="table">
+  <thead>
+    <tr>
+      <th class="fs-5">NO.</th>
+      <th class="fs-5">Name</th>
+      <th class="fs-5">Price</th>
+      <th class="fs-5">PriceByEGP</th>
+      <th class="fs-5">Image</th>
+      <th class="fs-5">Quantity</th>
+      <th class="fs-5">CategoryId</th>
+      <th class="fs-5">Count</th>
+      <th class="fs-5">Buy</th>
+    </tr>
+  </thead>
+  <tbody >
+    <!-- <tr *ngFor="let pro of prdlist; let i = index; ngForTrackBy:'proTrackByFunc'" [class.table-warning]="pro.quantity==0" [class.d-none]="SelectedCatId != pro.categoryId" > -->
+      <ng-container *ngFor="let pro of prdByCatId; let i = index; ngForTrackBy:'proTrackByFunc'">
+      <!-- <tr  [class.table-warning]="pro.quantity==0" *ngIf="pro.quantity != 0"> -->
+      <tr  [class.table-warning]="pro.quantity==0">
+
+      <td  class="fs-5">{{i+1}}</td>
+      <td class="fs-5">{{pro.name}}</td>
+
+      <td class="text text-primary fs-5">
+        <!-- {{pro.price | currency : 'EUR' : 'code'}}  -->
+        {{pro.price | currency : 'USD' : 'symbol'}}
+      </td>
+
+      <td class="text text-primary fs-5">
+        {{pro.price | usdToEgp |currency:'EGP'}}
+      </td>
+
+      <td>
+        <!-- <img LightBox highLightColor="red" [src]="pro.imgURL" ult="NotFound"/> -->
+        <!-- <img LightBox="red" [src]="pro.imgURL" ult="NotFound"/> -->
+        <img LightBox="red" defaultColor="black" [src]="pro.imgURL" ult="NotFound"/>
+      </td>
+      <td class="fs-5">
+        <!-- <div *ngIf="pro.quantity!= 0; else ZeroQuantity " >{{pro.quantity}}</div>
+        <ng-template #ZeroQuantity> Out Of Stock </ng-template> -->
+        <ng-container [ngSwitch]="pro.quantity">
+          <div *ngSwitchCase="0">Out Of Stock</div>
+          <div *ngSwitchCase="1">Last One </div>
+          <div *ngSwitchCase="2">Last two</div>
+          <div *ngSwitchDefault>{{pro.quantity}}</div>
+        </ng-container>
+
+      </td>
+      <td class="fs-5">{{pro.categoryId}}</td>
+      <td><input #countInput type="number" class="form-input" /> </td>
+      <td><button type="button" (click)="Add(pro.price , countInput.value)" class="btn btn-success">Buy</button></td>
+    </tr>
+  </ng-container>
+  </tbody>
+</table>
+<hr>

@@ -1,0 +1,15 @@
+<div class="container-fluid mt-3">
+  <!-- Interpolation -->
+<h1>{{storeInfo.name}}</h1>
+<div>
+  <!-- Property Binding -->
+  <img [src]="storeInfo.imgURL" *ngIf="showImage"  alt="RandomImg"/>
+  <button type="button" (click)="ImageToggle()" class="btn btn-primary">Toggle Image</button>
+</div>
+<div>
+<h3>Our Branches</h3>
+  <ul >
+    <li *ngFor="let item of storeInfo.branches">{{item}}</li>
+  </ul>
+</div>
+</div>
